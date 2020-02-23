@@ -1,8 +1,9 @@
 import React from 'react';
+import {withRouter} from 'react-router-dom';/*higher order component to avoid prop drilling*/ 
 import './menu-item.scss';
 
-const MenuItem = ({title,imageUrl,size}) =>(
-    <div className={`menu-item ${size}`}>
+const MenuItem = ({title,imageUrl,size,history,match,linkUrl}) =>(
+    <div className={`menu-item ${size}`} onClick={() => history.push(`${match.url}${linkUrl}`)}>
     <div className='background-image'
       style={{backgroundImage: `url(${imageUrl})`}}
     ></div>{/* we put image in another div to force transition of image inside menu-item with help of overflow:hidden */}
@@ -13,4 +14,4 @@ const MenuItem = ({title,imageUrl,size}) =>(
    </div>
 );
 
-export default MenuItem;
+export default withRouter(MenuItem);
