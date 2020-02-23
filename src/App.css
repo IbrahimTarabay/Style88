@@ -1,4 +1,10 @@
 body{
-  font-family: 'Open Sans Condensed';
+  font-family: 'Yeon Sung';
   padding: 20px 60px;
+  font-size: large;
+}
+
+a{
+  text-decoration: none;
+  color: black;
 }
