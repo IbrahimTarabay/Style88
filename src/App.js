@@ -5,18 +5,47 @@ import Header from './components/header/header';
 import HomePage from './pages/homepage/homepage';
 import ShopPage from './pages/shop/shop';
 import SignInAndSignUpPage from './pages/sign-in-and-sign-up/sign-in-and-sign-up';
+import {auth} from './firebase/firebase.utils';
 
-function App() {
-  return (
-    <div>
-      <Header />{/*header out of the switch because we want it to display in all pages*/}
-      <Switch>{/*it allows for nested routes to work properly*/} 
-      <Route exact path='/' component={HomePage} />
-      <Route path='/shop' component={ShopPage} />
-      <Route path='/signin' component={SignInAndSignUpPage} />
-      </Switch>
-    </div>
-  );
+class App extends React.Component {
+  constructor(){
+    super();
+
+    this.state = {
+      currentUser: null 
+    };
+  }
+
+  unsubscribeFromAuth = null; 
+ 
+  componentDidMount(){
+    /*it's an open messaging system between app and firebase*/
+    /*this connection is always open as long as our app component is mounted on dom*/  
+    this.unsubscribeFromAuth = auth.onAuthStateChanged(user =>{
+      this.setState({currentUser:user});
+      console.log(user);
+    });
+  }
+
+  /*we have to close subscription when unmount because we don't want memory leaks in our js app*/
+  componentWillUnmount(){
+    this.unsubscribeFromAuth();
+  }
+
+  render(){
+    return (
+      <div>
+        <Header currentUser={this.state.currentUser} />
+        {/*header out of the switch because we want it to display in all pages*/}
+        {/*we pass currentUser to make header aware of user sign in or sign out*/}
+        <Switch>{/*it allows for nested routes to work properly*/} 
+        <Route exact path='/' component={HomePage} />
+        <Route path='/shop' component={ShopPage} />
+        <Route path='/signin' component={SignInAndSignUpPage} />
+        </Switch>
+      </div>
+    );
+  }
 }
 
 export default App;
