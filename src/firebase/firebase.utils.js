@@ -1,6 +1,7 @@
 import firebase from 'firebase/app';
 import 'firebase/firestore';
 import 'firebase/auth';
+/*we use firebase services*/ 
 
 const config = {
     apiKey: "AIzaSyAlLVO-hsu4FUXiv3G5YlW3Iqx3_rouKpI",
@@ -11,12 +12,12 @@ const config = {
     messagingSenderId: "716735589057",
     appId: "1:716735589057:web:61fa63117ae248392ec240",
     measurementId: "G-3DB9T40923"
-  };
+  };/*object created from firebase to customize our application*/ 
 
   export const createUserProfileDocument = async (userAuth,additionalData) =>{/*userAuth is object return from auth library*/ 
-    if(!userAuth) return;
+    if(!userAuth) return;/*if user didn't sign in return nothing*/
      const userRef = firestore.doc(`users/${userAuth.uid}`);/*uid which in authentication library*/ 
-     const snapShot = await userRef.get();
+     const snapShot = await userRef.get();/*to get user object(data)*/
      
      if(!snapShot.exists){/*if user didn't exist in database*/ 
        const {displayName,email} = userAuth;

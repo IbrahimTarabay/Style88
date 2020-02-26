@@ -33,7 +33,7 @@ class SignIn extends React.Component{
           <FormInput
            name="email"
            type="email"
-           label="email"
+           label="Email"
            value={this.state.email}
             handleChange={this.handleChange}
              required />
@@ -41,14 +41,14 @@ class SignIn extends React.Component{
           <FormInput 
           name="password" 
           type="password"
-          label="password"
+          label="Password"
            value={this.state.password}
             handleChange={this.handleChange}
              required />
           
           <div className='buttons'>
           <CustomButton type='submit'>Sign in {/*children*/}</CustomButton>
-          <CustomButton onClick={signInWithGoogle} isGoogleSignIn>{/*isGoogleSignIn = true if you don't pass anything to it */}
+          <CustomButton onClick={signInWithGoogle} isGoogleSignIn>{/*isGoogleSignIn = true by default*/}
                   Sign in with Google
             </CustomButton> 
           </div>

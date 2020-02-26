@@ -20,9 +20,26 @@ class App extends React.Component {
  
   componentDidMount(){
     /*it's an open messaging system between app and firebase*/
-    /*this connection is always open as long as our app component is mounted on dom*/  
-    this.unsubscribeFromAuth = auth.onAuthStateChanged(async user =>{
-        createUserProfileDocument(user);
+    /*this connection is always open as long as our app component is mounted on dom*/ 
+    /*we stored the user data in our database in firebase.utils.js
+     but now we have to store that data in the "state" of our app so we can use it*/ 
+    this.unsubscribeFromAuth = auth.onAuthStateChanged(async userAuth =>{
+      if(userAuth){/*if user signed in*/
+        const userRef = await createUserProfileDocument(userAuth);
+        /*we will get user object in both cases if he have object in database*/
+        userRef.onSnapshot(snapShot =>{/*to get snapshot object(data) from that reference*/ 
+           this.setState({
+             currentUser:{
+               id:snapShot.id,
+               ...snapShot.data()
+             }
+           });
+           /*console.log(this.state);*/
+        })
+      }
+      else{/*if user log out set currentUser to null*/ 
+        this.setState({currentUser:userAuth});
+      }
     });
   }
 
