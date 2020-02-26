@@ -43,7 +43,8 @@ class App extends React.Component {
     });
   }
 
-  /*we have to close subscription when unmount because we don't want memory leaks in our js app*/
+  /*we have to close subscription when unmount because we don't want memory leaks in our js app
+  related to listeners still being open even if the component that cares about the listener is no longer on the page*/
   componentWillUnmount(){
     this.unsubscribeFromAuth();
   }
