@@ -1,5 +1,5 @@
 import React from 'react';
-import {Route,Switch} from 'react-router-dom';
+import {Route,Switch,Redirect} from 'react-router-dom';
 import './App.css';
 import Header from './components/header/header';
 import HomePage from './pages/homepage/homepage';
@@ -11,7 +11,7 @@ import {setCurrentUser} from './redux/user/user.actions';
 
 class App extends React.Component {
   unsubscribeFromAuth = null; 
- 
+  
   componentDidMount(){
     const {setCurrentUser} = this.props;
     /*it's an open messaging system between app and firebase*/
@@ -43,6 +43,7 @@ class App extends React.Component {
   }
 
   render(){
+    const {currentUser} = this.props;
     return (
       <div>
         <Header />
@@ -51,13 +52,24 @@ class App extends React.Component {
         <Switch>{/*it allows for nested routes to work properly*/} 
         <Route exact path='/' component={HomePage} />
         <Route path='/shop' component={ShopPage} />
-        <Route path='/signin' component={SignInAndSignUpPage} />
+
+        <Route exact path='/signin' render={() =>
+           currentUser ? 
+           (<Redirect to='/' />):
+           (<SignInAndSignUpPage/>)
+           }
+           />
+        {/*render is js invocation that determines what component to return
+         so it's in the same place of component but instead it will be some js*/}
         </Switch>
       </div>
     );
   }
 }
 
+const mapStateToProps = ({user}) =>({
+  currentUser: user.currentUser
+})
 
 const mapDispatchToProps = dispatch =>({
   setCurrentUser: user => dispatch(setCurrentUser(user))
@@ -65,9 +77,12 @@ const mapDispatchToProps = dispatch =>({
   /*the user will be then used as a payload*/
 })
 
-export default connect(null,mapDispatchToProps)(App);
+export default connect(mapStateToProps,mapDispatchToProps)(App);
+
 /*App component don't need currentUser anymore it's only setState it
 so we will pass null as first argument*/
+
+/*if we use currentUser state from user.reducer then we will replace null with mapStateToProps*/
 
 /*whenever you dispatch, all reducers are called, which is why there is no relation between reducer and action
 what matter is only the action type because reducer check this*/
