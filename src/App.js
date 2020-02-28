@@ -27,7 +27,7 @@ class App extends React.Component {
           setCurrentUser({
             id: snapShot.id,
             ...snapShot.data()
-          });
+          });/*this function like setState*/
         });
       }
       else{/*if user log out set currentUser to null*/ 
@@ -69,13 +69,13 @@ class App extends React.Component {
 
 const mapStateToProps = ({user}) =>({
   currentUser: user.currentUser
-})
+})/*we use this function to be able to use currentUser state in code it's like this.state*/
 
 const mapDispatchToProps = dispatch =>({
   setCurrentUser: user => dispatch(setCurrentUser(user))
   /*dispatch() whatever you're passing object is going to be an action that i'm going to pass to every reducer*/
   /*the user will be then used as a payload*/
-})
+})/*we use this function to be able to use setCurrentUser*/
 
 export default connect(mapStateToProps,mapDispatchToProps)(App);
 

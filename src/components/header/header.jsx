@@ -4,8 +4,10 @@ import {connect} from 'react-redux';
 import style88 from '../../assets/style88.png';
 import './header.scss';
 import {auth} from '../../firebase/firebase.utils';
+import CartIcon from '../cart-icon/cart-icon';
+import CartDropdown from '../cart-dropdown/cart-dropdown';
 
-const Header = ({currentUser}) =>(
+const Header = ({currentUser,hidden}) =>(
     <div className='header'>
       <Link className='logo-container' to="/">
       <img alt="style88" src={style88} style={{ height:100, width: 110 }} />
@@ -18,18 +20,23 @@ const Header = ({currentUser}) =>(
               CONTACT
           </Link>
           {
-            currentUser?
+            currentUser ?
             <div className='option' onClick={()=>auth.signOut()}>SIGN OUT</div>
             :
             <Link className='option' to='/signin'>SIGN IN</Link>
           }
+          <CartIcon />
         </div>
+        {hidden ? null : <CartDropdown />}
+        {/*we move the functionality of the CartDropdown
+        outside the header component and put it inside of global redux state*/}
       </div>
 )
 
-const mapStateToProps = state =>({
-  /*we can name this function anything but this the standard, state here indication for roort state*/
-  currentUser: state.user.currentUser
-})
+/*we can name this function anything but this the standard, state here indication for roort state*/
+const mapStateToProps = ({ user: { currentUser }, cart: { hidden } }) => ({
+  currentUser,/*instead of currentUser: state.user.currentUser*/
+  hidden/*instead of hidden: state.cart.hidden*/
+});
 
 export default connect(mapStateToProps)(Header);
