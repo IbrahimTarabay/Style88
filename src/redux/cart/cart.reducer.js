@@ -19,7 +19,7 @@ const cartReducer = (state=INITIAL_STATE,action) =>{
          hidden: false,/*to make cart visible when adding items*/
          cartItems: addItemToCart(state.cartItems,action.payload)
        }
-      default:
+    default:
         return state;
   }
 }
