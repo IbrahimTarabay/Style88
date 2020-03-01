@@ -33,7 +33,8 @@ const CheckoutPage = ({cartItems,total}) => (
       cartItems.map(cartItem =>
          <CheckoutItem key={cartItem.id} cartItem={cartItem} />
       )
-    }
+    }{/*we pass quantity here because we want update it every time quantity change
+    so we have here in this file selectCartItems that give us the new state everytime quantity change*/}
     <div className='total'>
       <span>TOTAL: ${total}</span>
     </div>
