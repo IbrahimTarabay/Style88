@@ -36,7 +36,6 @@ const Header = ({currentUser,hidden}) =>(
       </div>
 )
 
-
 /*we can name this function anything but this the standard, state here indication for root state*/
 /*
 const mapStateToProps = ({ user: { currentUser }, cart: { hidden } }) => ({

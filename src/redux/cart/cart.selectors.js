@@ -5,7 +5,6 @@ Selectors can provide performance optimizations to your application
 
   /*this will make sure that our component
   is not getting rerender when the state changes that's unrelated to it*/
-
 import { createSelector } from 'reselect';
 
 const selectCart = state => state.cart;/*return slice of whole state*/
@@ -26,3 +25,12 @@ export const selectCartItemsCount = createSelector(
    cartItems.reduce((accumalatedQuantity,cartItem) => 
    accumalatedQuantity + cartItem.quantity,0)
 );
+
+export const selectCartTotal = createSelector(
+  [selectCartItems],
+   cartItems =>
+    cartItems.reduce(
+      (accumalatedQuantity, cartItem) =>
+       accumalatedQuantity + cartItem.quantity * cartItem.price,0
+    )
+)

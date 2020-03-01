@@ -5,6 +5,7 @@ import Header from './components/header/header';
 import HomePage from './pages/homepage/homepage';
 import ShopPage from './pages/shop/shop';
 import SignInAndSignUpPage from './pages/sign-in-and-sign-up/sign-in-and-sign-up';
+import CheckoutPage from './pages/checkout/checkout';
 import {auth,createUserProfileDocument} from './firebase/firebase.utils';
 import {connect} from 'react-redux';
 import {setCurrentUser} from './redux/user/user.actions';
@@ -51,9 +52,12 @@ class App extends React.Component {
         <Header />
         {/*header out of the switch because we want it to display in all pages*/}
         {/*we pass currentUser to make header aware of user sign in or sign out*/}
+        {/*The exact param disables the partial matching for a route and makes sure
+         that it only returns the route if the path is an EXACT match to the current url*/}
         <Switch>{/*it allows for nested routes to work properly*/} 
         <Route exact path='/' component={HomePage} />
         <Route path='/shop' component={ShopPage} />
+        <Route exact path='/checkout' component={CheckoutPage} />
 
         <Route exact path='/signin' render={() =>
            currentUser ? 
