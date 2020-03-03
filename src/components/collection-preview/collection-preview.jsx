@@ -13,6 +13,7 @@ const CollectionPreview = ({title,items}) =>(
          .map(item => (
            <CollectionItem key={item.id} item={item} />
          ))}
+         {/*this is the preview when you click on shop link*/}
       </div>
   </div>
 );
