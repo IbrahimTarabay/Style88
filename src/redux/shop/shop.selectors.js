@@ -7,6 +7,11 @@ export const selectCollections = createSelector(
   shop => shop.collections
 );
 
+export const selectSearchField = createSelector(
+  [selectShop],
+  shop => shop.searchfield
+)
+
 export const selectCollectionsForPreview =createSelector(
  [selectCollections],
  collections => Object.keys(collections).map(key => collections[key])
@@ -19,3 +24,9 @@ export const selectCollection = collectionUrlParam =>/*collectionUrlParam is str
    [selectCollections],
    collections => collections[collectionUrlParam]
  );
+
+ /*[selectSearchField],
+
+ .filter((collectionItem,searchfield) =>{
+  return collectionItem.name.toLowerCase().includes(searchfield.toLowerCase());
+ }*/

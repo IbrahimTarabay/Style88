@@ -40,7 +40,7 @@ const CartDropdown = ({cartItems,history,dispatch}) =>(
 const mapStateToProps = createStructuredSelector({
   cartItems: selectCartItems
 });
-/*so if we sign out our cartItems in our cartDropdown as well as our cart cartItemsCount is not changing
+/*with use of selectors if we sign out our cartItems in our cartDropdown as well as our cart cartItemsCount is not changing
 because we don't need them to rerender and this help us on performance*/
 
 export default withRouter(connect(mapStateToProps)(CartDropdown));
