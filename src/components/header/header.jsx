@@ -1,5 +1,4 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 
@@ -11,34 +10,34 @@ import CartDropdown from '../cart-dropdown/cart-dropdown';
 import { selectCartHidden } from '../../redux/cart/cart.selectors';
 import { selectCurrentUser } from '../../redux/user/user.selectors';
 
-import './header.scss';
+import {HeaderContainer,LogoContainer,OptionsContainer,OptionLink} from './header.styles';
 
 import style88 from '../../assets/style88.png';
 
 const Header = ({currentUser,hidden}) =>(
-    <div className='header'>
-      <Link className='logo-container' to="/">
-      <img alt="style88" src={style88} style={{ height:100, width: 110 }} />
-      </Link>
-      <div className='options'>
-          <Link className='option' to='/shop'>
+    <HeaderContainer>
+      <LogoContainer to="/">
+       <img alt="style88" src={style88} style={{ height:100, width: 110 }} />
+      </LogoContainer>
+      <OptionsContainer>
+          <OptionLink to='/shop'>
               SHOP
-          </Link>
-          <Link className='option' to='/shop'>
+          </OptionLink>
+          <OptionLink to='/shop'>
               CONTACT
-          </Link>
+          </OptionLink>
           {
             currentUser ?
-            <div className='option' onClick={()=>auth.signOut()}>SIGN OUT</div>
+            <OptionLink as='div' onClick={()=>auth.signOut()}>SIGN OUT</OptionLink>
             :
-            <Link className='option' to='/signin'>SIGN IN</Link>
+            <OptionLink to='/signin'>SIGN IN</OptionLink>
           }
           <CartIcon />
-        </div>
+        </OptionsContainer>
         {hidden ? null : <CartDropdown />}
         {/*we move the functionality of the CartDropdown
         outside the header component and put it inside of global redux state*/}
-      </div>
+      </HeaderContainer>
 )
 
 /*we can name this function anything but this the standard, state here indication for root state*/
