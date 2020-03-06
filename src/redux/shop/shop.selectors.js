@@ -14,7 +14,7 @@ export const selectSearchField = createSelector(
 
 export const selectCollectionsForPreview =createSelector(
  [selectCollections],
- collections => Object.keys(collections).map(key => collections[key])
+ collections => collections ? Object.keys(collections).map(key => collections[key]) : []
 );
 /*we want to make shop.data.js be an array when we map to show collections in shop*/
 
@@ -22,7 +22,7 @@ export const selectCollectionsForPreview =createSelector(
 export const selectCollection = collectionUrlParam =>/*collectionUrlParam is string like hats*/
  createSelector(
    [selectCollections],
-   collections => collections[collectionUrlParam]
+   collections => (collections ? collections[collectionUrlParam] : null)
  );
 
  /*[selectSearchField],
