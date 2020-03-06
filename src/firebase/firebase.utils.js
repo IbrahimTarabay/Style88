@@ -16,9 +16,9 @@ const config = {
 
   export const createUserProfileDocument = async (userAuth,additionalData) =>{/*userAuth is object return from auth library*/ 
     if(!userAuth) return;/*if user didn't sign in return nothing*/
-     const userRef = firestore.doc(`users/${userAuth.uid}`);/*uid which in authentication library*/ 
+     const userRef = firestore.doc(`users/${userAuth.uid}`);/*uid which in authentication library,users===collection*/ 
      const snapShot = await userRef.get();/*to get user object(data)*/
-     
+
      if(!snapShot.exists){/*if user didn't exist in database*/ 
        const {displayName,email} = userAuth;
        const createdAt = new Date();
@@ -36,6 +36,23 @@ const config = {
      }
      return userRef;
   }
+  /*firebase will always give us back the reference object and 
+  snapshot object if nothing exists*/
+  /*export const addCollectionAndDocuments = async (collectionKey,objectsToAdd) => {
+    const collectionRef = firestore.collection(collectionKey);
+
+    const batch = firestore.batch();
+    /*with batch we want to make all requests happen as bundle so
+    all newDocRef created with all objects*/
+    /*objectsToAdd.forEach(obj => {
+      const newDocRef = collectionRef.doc();
+      /*randomly generate unique id for me
+      batch.set(newDocRef,obj);
+    });
+    return await batch.commit()
+    /*to fire our batch request
+  };*/
+  /*we just use this commented code once to enter our collection data with no manual effort*/
 
   firebase.initializeApp(config);
 

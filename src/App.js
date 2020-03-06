@@ -16,6 +16,7 @@ import { auth, createUserProfileDocument } from './firebase/firebase.utils';
 
 import { setCurrentUser } from './redux/user/user.actions';
 import { selectCurrentUser } from './redux/user/user.selectors';
+/*import { selectCollectionsForPreview } from './redux/shop/shop.selectors';*/
 
 class App extends React.Component {
   unsubscribeFromAuth = null; 
@@ -41,8 +42,11 @@ class App extends React.Component {
       else{/*if user log out set currentUser to null*/ 
         setCurrentUser(userAuth);
       }
-    });
-  }
+      /*addCollectionAndDocuments('collections',collectionsArray.map(({title,items}) =>
+      ({title,items})))
+      });*//*we just fire it once to enter shop data*/
+    } 
+  )}
 
   /*we have to close subscription when unmount because we don't want memory leaks in our js app
   related to listeners still being open even if the component that cares about the listener is no longer on the page*/
@@ -80,13 +84,15 @@ class App extends React.Component {
 
 const mapStateToProps = createStructuredSelector({
   currentUser: selectCurrentUser
-})/*we use this function to be able to use currentUser state in code it's like this.state*/
+  /*collectionsArray: selectCollectionsForPreview*/
+});/*we use this function to be able to use currentUser state in code it's like this.state*/
 
 const mapDispatchToProps = dispatch =>({
   setCurrentUser: user => dispatch(setCurrentUser(user))
   /*dispatch() whatever you're passing object is going to be an action that i'm going to pass to every reducer*/
   /*the user will be then used as a payload*/
-})/*we use this function to be able to use setCurrentUser*/
+})
+/*we use this function to be able to use setCurrentUser*/
 
 export default connect(mapStateToProps,mapDispatchToProps)(App);
 
