@@ -45,7 +45,7 @@ because we don't need them to rerender and this help us on performance*/
 
 export default withRouter(connect(mapStateToProps)(CartDropdown));
 /*withRouter is high order component that take another component as argument*/
-/*with this way our component will have access to the props thate we are looking
+/*with this way our component will have access to the props that we are looking
 for which in this case "history"*/
 
 /*connect pass dispatch automatically so we don't need to write mapDispatchToProps 

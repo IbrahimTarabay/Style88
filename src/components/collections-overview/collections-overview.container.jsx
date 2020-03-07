@@ -19,6 +19,8 @@ const CollectionsOverviewContainer = compose(
 
 export default CollectionsOverviewContainer;
 
+/*the containers don't render anything they just pass props down to components*/
+
 /*we made this file to prevent proprties that belong to this file to pass from shop.jsx
 
  const CollectionsOverviewWithSpinner = WithSpinner(CollectionsOverview);
