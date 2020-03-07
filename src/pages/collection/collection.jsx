@@ -23,7 +23,10 @@ onChangeSearch = (event) =>{
 
 render(){
   const {collection} = this.props;
-  const {title,items} =collection;
+  const { title, items } = collection;
+  /* we solve it with isCollectionsLoaded in shop.jsx but this is another solution
+  const { title, items } = collection ? collection : {title: '', items: []};*/
+  /*we don't have collection=null when is still fetching our collection*/
   const filteredItems = items.filter(item =>{
     return item.name.toLowerCase().includes(this.state.searchfield.toLowerCase())});
   

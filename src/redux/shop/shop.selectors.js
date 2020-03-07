@@ -25,8 +25,13 @@ export const selectCollection = collectionUrlParam =>/*collectionUrlParam is str
    collections => (collections ? collections[collectionUrlParam] : null)
  );
 
- /*[selectSearchField],
+ export const selectIsCollectionFetching = createSelector(
+   [selectShop],
+   shop => shop.isFetching
+ );
 
- .filter((collectionItem,searchfield) =>{
-  return collectionItem.name.toLowerCase().includes(searchfield.toLowerCase());
- }*/
+ export const selectIsCollectionsLoaded = createSelector(
+   [selectShop],
+   shop => !!shop.collections
+   /*if collections is loaded return true else false*/
+ );
